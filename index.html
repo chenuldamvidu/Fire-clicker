@@ -3,21 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Clicker</title>
+<title>🔥 Fire Clicker Ultra 🔥</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>🔥 Fire Clicker 🔥</h1>
+<h1>🔥 Fire Clicker Ultra 🔥</h1>
 <p>Score: <span id="score">0</span></p>
+<p>Click Power: <span id="click-power">1</span> | Prestige Multiplier: <span id="prestige-multiplier">1x</span></p>
 
-<button id="fire-btn">🔥</button>
+<img id="fire-btn" src="fire.png" alt="Fire">
 
-<div id="upgrades">
+<div id="shop">
     <h2>Upgrades</h2>
-    <button id="upgrade-click">Increase Click Power (Cost: 50)</button>
-    <button id="upgrade-auto">Auto Click (Cost: 200)</button>
+    <div id="upgrade-list"></div>
 </div>
+
+<button id="prestige-btn">Prestige (Cost: 1B)</button>
+<button id="reset-progress">RESET Progress</button>
 
 <script src="game.js"></script>
 </body>
