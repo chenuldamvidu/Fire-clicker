@@ -1,7 +1,7 @@
 // --- Initialization ---
 let score = parseFloat(localStorage.getItem("score")) || 0;
 let clickPower = parseFloat(localStorage.getItem("clickPower")) || 1;
-let autoClickers = {tier1: 0, tier2: 0, tier3: 0};
+let autoClickers = {tier1:0, tier2:0, tier3:0};
 
 const scoreDisplay = document.getElementById("score");
 const clickPowerDisplay = document.getElementById("click-power");
@@ -10,17 +10,17 @@ const shopList = document.getElementById("upgrade-list");
 const resetBtn = document.getElementById("reset-progress");
 
 // --- Big number formatting ---
-function formatNumber(num) {
+function formatNumber(num){
     const units = ["","K","M","B","T","Qa","Qi","Sx"];
-    let unitIndex = 0;
-    while(num >= 1000 && unitIndex < units.length-1){
-        num /= 1000;
+    let unitIndex=0;
+    while(num>=1000 && unitIndex<units.length-1){
+        num/=1000;
         unitIndex++;
     }
     return num.toFixed(2)+" "+units[unitIndex];
 }
 
-// --- Upgrade names ---
+// --- Upgrade names from your list ---
 const upgradeNames = [
 "Spark","Ember","Flame","Blaze","Inferno","Firestorm","Wildfire","Pyro","Scorch","Firebrand",
 "Heatwave","Lava","Magma","Conflagration","Hellfire","Phoenix","Solar Flare","Volcanic","Meteor Flame",
@@ -34,7 +34,7 @@ const upgradeNames = [
 ];
 
 // --- Upgrade costs ---
-const costs = [
+const costs=[
 1,5,10,50,100,200,500,1000,2000,5000,10000,20000,50000,
 100000,200000,500000,1000000,2000000,5000000,10000000,20000000,50000000,
 100000000,200000000,500000000,1000000000,2000000000,5000000000,
@@ -45,11 +45,11 @@ const costs = [
 100000000000000000,200000000000000000,500000000000000000,1000000000000000000
 ];
 
-// --- Merge upgrades and auto-clickers ---
+// --- Create upgrades with click/auto mixed ---
 const upgrades = costs.map((c,i)=>{
-    let type = (i%2===0) ? "click" : "auto"; // alternating click and auto
+    let type = i%2===0 ? "click" : "auto"; // alternating
     let name = upgradeNames[i] || `Upgrade ${i+1}`;
-    return {cost: c, name: name, type: type, level: 0};
+    return {cost:c, name:name, type:type, level:0};
 });
 
 // Emoji mapping
@@ -59,31 +59,31 @@ function getEmoji(type){
 
 // --- Create upgrade buttons ---
 function createUpgradeButtons(){
-    shopList.innerHTML = "";
+    shopList.innerHTML="";
     upgrades.sort((a,b)=>a.cost-b.cost);
-    upgrades.forEach(upg=>{
+    upgrades.forEach((upg,index)=>{
         const btn = document.createElement("button");
         btn.className="upgrade-btn";
-        const emoji = getEmoji(upg.type);
-        btn.textContent = `${emoji} ${upg.name} (Cost: ${formatNumber(upg.cost)}) Lv: ${upg.level}`;
-        
-        btn.addEventListener("click", ()=>{
-            if(score >= upg.cost){
-                score -= upg.cost;
+        btn.textContent = `${getEmoji(upg.type)} ${upg.name} | Cost: ${formatNumber(upg.cost)} | Lv: ${upg.level}`;
 
-                if(upg.type==="click") clickPower +=1;
+        btn.onclick = ()=>{
+            if(score>=upg.cost){
+                score-=upg.cost;
+
+                // Upgrade effects
+                if(upg.type==="click") clickPower+=1;
                 if(upg.type==="auto"){
-                    if(upg.level<5) autoClickers.tier1 +=1;
-                    else if(upg.level<10) autoClickers.tier2 +=1;
-                    else autoClickers.tier3 +=1;
+                    if(upg.level<5) autoClickers.tier1+=1;
+                    else if(upg.level<10) autoClickers.tier2+=1;
+                    else autoClickers.tier3+=1;
                 }
 
-                upg.level +=1;
-                upg.cost = Math.floor(upg.cost * 1.5);
+                upg.level+=1;
+                upg.cost = Math.floor(upg.cost*1.5);
                 updateDisplay();
                 createUpgradeButtons();
             }
-        });
+        }
 
         shopList.appendChild(btn);
     });
@@ -93,12 +93,12 @@ createUpgradeButtons();
 // --- Fire click animations ---
 function animateFire(){
     fireBtn.style.transform="scale(1.2)";
-    setTimeout(()=>{fireBtn.style.transform="scale(1)";},100);
+    setTimeout(()=>fireBtn.style.transform="scale(1)",100);
 }
 function createSpark(){
-    const spark = document.createElement("div");
+    const spark=document.createElement("div");
     spark.className="spark";
-    const size = Math.random()*15+10;
+    const size=Math.random()*15+10;
     spark.style.width=size+"px";
     spark.style.height=size+"px";
     spark.style.left=Math.random()*130+"px";
@@ -106,7 +106,6 @@ function createSpark(){
     document.getElementById("fire-container").appendChild(spark);
     setTimeout(()=>spark.remove(),700);
 }
-// Floating number
 function showFloatingNumber(amount){
     const floatNum = document.createElement("div");
     floatNum.className="floating-number";
@@ -118,7 +117,7 @@ function showFloatingNumber(amount){
 
 // --- Click fire ---
 fireBtn.addEventListener("click", ()=>{
-    score += clickPower;
+    score+=clickPower;
     updateDisplay();
     animateFire();
     createSpark();
@@ -129,7 +128,7 @@ fireBtn.addEventListener("click", ()=>{
 setInterval(()=>{
     const totalAuto = autoClickers.tier1 + autoClickers.tier2*10 + autoClickers.tier3*100;
     if(totalAuto>0){
-        score += totalAuto;
+        score+=totalAuto;
         updateDisplay();
         for(let i=0;i<Math.min(totalAuto,5);i++) createSpark();
         fireBtn.style.transform="scale(1.1)";
@@ -151,9 +150,10 @@ resetBtn.addEventListener("click", ()=>{
 
 // --- Update Display ---
 function updateDisplay(){
-    scoreDisplay.textContent = formatNumber(score);
-    clickPowerDisplay.textContent = clickPower;
+    scoreDisplay.textContent=formatNumber(score);
+    clickPowerDisplay.textContent=clickPower;
     localStorage.setItem("score",score);
     localStorage.setItem("clickPower",clickPower);
 }
 updateDisplay();
+
