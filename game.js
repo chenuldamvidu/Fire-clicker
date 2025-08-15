@@ -156,4 +156,36 @@ function updateDisplay(){
     localStorage.setItem("clickPower",clickPower);
 }
 updateDisplay();
+const namePanel = document.getElementById("name-panel");
+const gameContainer = document.getElementById("game-container");
+const startBtn = document.getElementById("start-game");
+const nameInput = document.getElementById("player-name");
+const nameError = document.getElementById("name-error");
+
+let playerName = "";
+
+startBtn.addEventListener("click", () => {
+  const name = nameInput.value.trim();
+  if(name.length < 3) {
+    nameError.textContent = "Name must be at least 3 characters.";
+    return;
+  }
+  // Check with server if name exists
+  fetch(`/checkName?name=${encodeURIComponent(name)}`)
+    .then(res => res.json())
+    .then(data => {
+      if(data.exists) {
+        nameError.textContent = "Name already taken. Choose another!";
+      } else {
+        playerName = name;
+        namePanel.style.display = "none";
+        gameContainer.style.display = "block";
+      }
+    })
+    .catch(err => {
+        nameError.textContent = "Server error. Try again!";
+        console.error(err);
+    });
+});
+
 
