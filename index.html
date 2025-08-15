@@ -1,18 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 Fire Clicker 🔥</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 Fire Clicker Ultra 🔥</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>🔥 Fire Clicker 🔥</h1>
-    <p id="score">🔥 Fire: 0</p>
-    <p id="tier">Current Tier: Spark</p>
+<div class="container">
 
-    <button id="clickButton">🔥 Click for Fire 🔥</button>
+    <!-- Left shop panel -->
+    <div id="shop">
+        <h2>Upgrades</h2>
+        <div id="upgrade-list"></div>
+        <button id="reset-progress">RESET Progress</button>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- Main game area -->
+    <div class="main">
+        <h1>🔥 Fire Clicker Ultra 🔥</h1>
+        <p>Score: <span id="score">0</span></p>
+        <p>Click Power: <span id="click-power">1</span></p>
+        <div id="fire-container">
+            <!-- CSS flame -->
+            <div id="fire-btn"></div>
+        </div>
+    </div>
+
+</div>
+<script src="game.js"></script>
 </body>
 </html>
