@@ -1,14 +1,59 @@
 body {
-    text-align: center;
+    margin: 0;
     font-family: Arial, sans-serif;
     background: url('background.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
 }
 
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Shop panel */
+#shop {
+    width: 300px;
+    background: rgba(0,0,0,0.7);
+    padding: 15px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+#shop h2 {
+    text-align: center;
+}
+
+.upgrade-btn {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    background: orange;
+    color: black;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+.upgrade-btn:hover {
+    background: gold;
+}
+
+/* Main panel */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 h1 {
     font-size: 3em;
-    margin-top: 20px;
+    margin: 20px 0;
     text-shadow: 2px 2px 4px black;
 }
 
@@ -28,32 +73,23 @@ h1 {
     transform: scale(1.2);
 }
 
-#shop {
-    margin-top: 30px;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 15px;
-    border-radius: 10px;
-    display: inline-block;
-}
-
-.upgrade-btn {
-    display: block;
-    margin: 5px auto;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border: none;
-    background: orange;
-    color: black;
-    border-radius: 5px;
-    transition: background 0.2s;
-}
-
-.upgrade-btn:hover {
-    background: gold;
-}
-
 button {
     margin: 10px;
     padding: 10px 15px;
+}
+
+/* Fire spark animation */
+@keyframes spark {
+    0% {opacity: 1; transform: translateY(0) scale(1);}
+    100% {opacity: 0; transform: translateY(-50px) scale(0.5);}
+}
+
+.spark {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: orange;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: spark 0.7s linear forwards;
 }
