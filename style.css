@@ -1,8 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: url('background.jpg') no-repeat center center fixed;
-    background-size: cover;
+    background: #1a1a1a;
     color: white;
 }
 
@@ -62,20 +61,28 @@ h1 {
     color: gold;
 }
 
-#fire-btn {
-    width: 200px;
-    cursor: pointer;
-    transition: transform 0.1s ease;
+/* Fire container & CSS flame */
+#fire-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
     margin-top: 40px;
 }
 
-#fire-btn:active {
-    transform: scale(1.2);
+#fire-btn {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, orange, red 70%, darkred);
+    box-shadow: 0 0 30px orange, 0 0 60px red, 0 0 90px darkred;
+    cursor: pointer;
+    animation: flicker 0.2s infinite alternate;
 }
 
-button {
-    margin: 10px;
-    padding: 10px 15px;
+@keyframes flicker {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.05);}
+    100% {transform: scale(0.95);}
 }
 
 /* Fire spark animation */
@@ -93,3 +100,24 @@ button {
     pointer-events: none;
     animation: spark 0.7s linear forwards;
 }
+
+/* Floating number */
+.floating-number {
+    position: absolute;
+    color: yellow;
+    font-weight: bold;
+    font-size: 20px;
+    pointer-events: none;
+    animation: floatUp 1s ease-out forwards;
+}
+
+@keyframes floatUp {
+    0% {opacity:1; transform: translateY(0);}
+    100% {opacity:0; transform: translateY(-50px);}
+}
+
+button {
+    margin: 10px;
+    padding: 10px 15px;
+}
+
