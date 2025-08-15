@@ -3,41 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 Fire Clicker Ultra 🔥</title>
-<link rel="stylesheet" href="style.css">
+<title>Fire Clicker</title>
+<style>
+  body { font-family: Arial; background: #111; color: #fff; margin:0; padding:0; display:flex; }
+  #game-container { flex:1; padding:20px; position:relative; }
+  #fire-btn { width:150px; height:150px; background:red; border-radius:50%; font-size:20px; }
+  #upgrades { width:250px; background:#222; overflow-y:auto; padding:10px; }
+  .upgrade { padding:5px; margin:5px; background:#333; cursor:pointer; }
+  .floating-number { position:absolute; color:yellow; animation: floatUp 1s forwards; }
+  @keyframes floatUp { 0%{opacity:1; transform:translateY(0);} 100%{opacity:0; transform:translateY(-50px);} }
+  #leaderboard { background:#222; padding:10px; margin-top:10px; }
+  #admin-panel { background:#333; padding:10px; margin-top:10px; }
+</style>
 </head>
 <body>
-<div class="container">
 
-    <!-- Left shop panel -->
-    <div id="shop">
-        <h2>Upgrades</h2>
-        <div id="upgrade-list"></div>
-        <button id="reset-progress">RESET Progress</button>
-    </div>
-
-    <!-- Main game area -->
-    <div class="main">
-        <h1>🔥 Fire Clicker Ultra 🔥</h1>
-        <p>Score: <span id="score">0</span></p>
-        <p>Click Power: <span id="click-power">1</span></p>
-        <div id="fire-container">
-            <!-- CSS flame -->
-            <div id="fire-btn"></div>
-        </div>
-    </div>
-
+<div id="upgrades">
+  <h3>Upgrades</h3>
+  <div id="upgrade-list"></div>
+  <div id="leaderboard">
+    <h4>Leaderboard</h4>
+    <ol id="leaderboard-list"></ol>
+  </div>
+  <div id="admin-panel">
+    <h4>Admin Panel</h4>
+    <button id="reset-game">Reset All</button>
+    <button id="max-click-power">Max Click Power</button>
+  </div>
 </div>
+
+<div id="game-container">
+  <h2>Score: <span id="score">0</span></h2>
+  <button id="fire-btn">🔥 Click Fire!</button>
+</div>
+
 <script src="game.js"></script>
 </body>
 </html>
-<div id="name-panel">
-  <h3>Enter your name:</h3>
-  <input type="text" id="player-name" placeholder="Your unique name">
-  <button id="start-game">Start Game</button>
-  <p id="name-error" style="color:red;"></p>
-</div>
 
-<div id="game-container" style="display:none;">
-  <!-- Your existing game HTML here -->
-</div>
