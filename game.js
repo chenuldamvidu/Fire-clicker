@@ -1,6 +1,5 @@
 // --- Game variables ---
 let score = parseInt(localStorage.getItem("score")) || 0;
-let clickPower = parseInt(localStorage.getItem("clickPower")) || 1;
 
 // --- DOM elements ---
 const scoreDisplay = document.getElementById("score");
@@ -78,7 +77,11 @@ const upgrades = [
 function updateDisplay(){
   scoreDisplay.textContent = score;
   localStorage.setItem("score",score);
-  localStorage.setItem("clickPower",clickPower);
+}
+
+function calculateClickPower(){
+  let clickPower = upgrades.reduce((sum,u)=> sum + u.level * u.power,0);
+  return clickPower || 1;
 }
 
 function createFloatingNumber(amount,x,y){
@@ -93,7 +96,7 @@ function createFloatingNumber(amount,x,y){
 
 function refreshUpgrades(){
   upgradeList.innerHTML="";
-  upgrades.forEach((u,i)=>{
+  upgrades.forEach(u=>{
     const div = document.createElement("div");
     div.className = "upgrade";
     div.textContent = `${u.name} (Lv:${u.level}) Cost:${u.cost}`;
@@ -101,7 +104,6 @@ function refreshUpgrades(){
       if(score >= u.cost){
         score -= u.cost;
         u.level +=1;
-        clickPower += u.power;
         u.cost = Math.floor(u.cost*2);
         updateDisplay();
         refreshUpgrades();
@@ -139,6 +141,7 @@ function saveLeaderboard(){
 
 // --- Event Listeners ---
 fireBtn.addEventListener("click",(e)=>{
+  let clickPower = calculateClickPower();
   score += clickPower;
   updateDisplay();
   createFloatingNumber(clickPower,e.clientX-50,e.clientY-50);
@@ -146,9 +149,8 @@ fireBtn.addEventListener("click",(e)=>{
 
 document.getElementById("reset-game").addEventListener("click",()=>{
   if(confirm("Reset everything?")){
-    score=0; clickPower=1;
-    upgrades.forEach(u=>{u.level=0;});
-    localStorage.clear();
+    score=0;
+    upgrades.forEach(u=>{u.level=0; u.cost = Math.floor(u.cost/Math.pow(2,u.level));});
     updateDisplay();
     refreshUpgrades();
     refreshLeaderboard();
@@ -156,9 +158,9 @@ document.getElementById("reset-game").addEventListener("click",()=>{
 });
 
 document.getElementById("max-click-power").addEventListener("click",()=>{
-  clickPower=999999;
-  localStorage.setItem("clickPower",clickPower);
+  upgrades.forEach(u=>{u.level=999;});
   updateDisplay();
+  refreshUpgrades();
   alert("Click power maxed!");
 });
 
@@ -167,6 +169,4 @@ updateDisplay();
 refreshUpgrades();
 refreshLeaderboard();
 window.addEventListener("beforeunload",saveLeaderboard);
-
-
 
