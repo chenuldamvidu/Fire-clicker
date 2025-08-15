@@ -1,122 +1,74 @@
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #1a1a1a;
-    color: white;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
 }
 
-.container {
-    display: flex;
-    height: 100vh;
+#upgrades {
+  width: 250px;
+  background: #222;
+  overflow-y: auto;
+  padding: 10px;
 }
 
-/* Shop panel */
-#shop {
-    width: 300px;
-    background: rgba(0,0,0,0.7);
-    padding: 15px;
-    overflow-y: auto;
-    box-sizing: border-box;
-}
-
-#shop h2 {
-    text-align: center;
-}
-
-.upgrade-btn {
-    display: block;
-    width: 100%;
-    margin: 5px 0;
-    padding: 10px;
-    font-size: 1em;
-    cursor: pointer;
-    border: none;
-    background: orange;
-    color: black;
-    border-radius: 5px;
-    transition: background 0.2s;
-}
-
-.upgrade-btn:hover {
-    background: gold;
-}
-
-/* Main panel */
-.main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-h1 {
-    font-size: 3em;
-    margin: 20px 0;
-    text-shadow: 2px 2px 4px black;
+#game-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 #score {
-    font-size: 2em;
-    color: gold;
+  font-size: 36px;
+  margin-bottom: 20px;
 }
 
-/* Fire container & CSS flame */
-#fire-container {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    margin-top: 40px;
+.upgrade {
+  padding: 8px;
+  margin: 5px 0;
+  background: #333;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
 }
 
 #fire-btn {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: radial-gradient(circle at 50% 50%, orange, red 70%, darkred);
-    box-shadow: 0 0 30px orange, 0 0 60px red, 0 0 90px darkred;
-    cursor: pointer;
-    animation: flicker 0.2s infinite alternate;
+  width: 180px;
+  height: 180px;
+  font-size: 24px;
+  border-radius: 50%;
+  border: none;
+  background: radial-gradient(circle, orange, red);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 20px orange;
 }
 
-@keyframes flicker {
-    0% {transform: scale(1);}
-    50% {transform: scale(1.05);}
-    100% {transform: scale(0.95);}
-}
-
-/* Fire spark animation */
-@keyframes spark {
-    0% {opacity: 1; transform: translateY(0) scale(1);}
-    100% {opacity: 0; transform: translateY(-50px) scale(0.5);}
-}
-
-.spark {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: orange;
-    border-radius: 50%;
-    pointer-events: none;
-    animation: spark 0.7s linear forwards;
-}
-
-/* Floating number */
 .floating-number {
-    position: absolute;
-    color: yellow;
-    font-weight: bold;
-    font-size: 20px;
-    pointer-events: none;
-    animation: floatUp 1s ease-out forwards;
+  position: absolute;
+  color: yellow;
+  font-weight: bold;
+  animation: floatUp 1s ease-out forwards;
 }
 
 @keyframes floatUp {
-    0% {opacity:1; transform: translateY(0);}
-    100% {opacity:0; transform: translateY(-50px);}
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-50px); }
 }
 
 button {
-    margin: 10px;
-    padding: 10px 15px;
+  margin-top: 10px;
+  padding: 5px 10px;
+  background: #444;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
 }
